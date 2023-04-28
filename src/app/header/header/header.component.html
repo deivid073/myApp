@@ -1,0 +1,21 @@
+<div class="toolbar" [class]="myClass">
+  <div class="row d-flex" role="">
+    <div *ngIf="isCurrentRouteBody()">
+      <app-sections class="col-4" />
+    </div>
+    
+    <div class="col-4 offset-1">
+    </div>
+    <app-profile class="col-2" />
+  </div>
+  <div class="row">
+    <!-- <button class="col-1" mat-raised-button color="accent" routerLink="/products" routerLinkActive="active"
+      ariaCurrentWhenActive="page">
+      Products
+    </button> -->
+    <button mat-raised-button color="danger" class=" ms-3 mb-4 col-1" [routerLink]="['body']">Body</button>
+    <button mat-raised-button color="danger" class=" ms-3 mb-4 col-1" [routerLink]="['users']">List Users</button>
+    <button mat-raised-button color="danger" class=" ms-3 mb-4 col-1" [routerLink]="['register']">Register</button>
+
+  </div>
+</div>

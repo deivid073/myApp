@@ -1,0 +1,37 @@
+<h1>Personas</h1>
+<table>
+  <thead>
+    <tr>
+      <th>NAME</th>
+      <th>DATE</th>
+      <th>EMAIL</th>
+      <th>GENDER</th>
+      <th>ADDRESS</th>
+      <th>CITY</th>
+      <th>STATE</th>
+      <th>POSTALCODE</th>
+      <th>SERVICE</th>
+      
+    </tr>
+  </thead>
+
+  <ng-container *ngFor="let product of ProductsArr">
+    <tr>
+      
+      <td>{{product.name}}</td>
+      <td>{{product.birthDate}}</td>
+      <td>{{product.email}}</td>
+      <td>{{product.gender}}</td>
+      <td>{{product.address}}</td>
+      <td>{{product.city}}</td>
+      <td>{{product.state}}</td>
+      <td>{{product.postalCode}}</td>
+      <td>{{product.services}}</td>
+      <td>ELIMINAR</td>                 
+
+    </tr>
+  </ng-container>
+</table>
+
+
+

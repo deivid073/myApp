@@ -1,0 +1,106 @@
+<h2 mat-dialog-title>Register Form</h2>
+<form [formGroup]="RegisterForm" (ngSubmit)="onSubmitRegister()">
+  <div>
+    <div class="d-flex">
+      <p>
+        <mat-form-field appearance="fill">
+          <mat-label>Complete Name</mat-label>
+          <input matInput placeholder="Name" maxlength="60" formControlName="name" required />
+          <mat-error *ngIf="RegisterForm.get('birthDate')?.invalid">{{getErrorMessage()}}</mat-error>
+        </mat-form-field>
+      </p>
+      <mat-form-field class="example-full-width" appearance="fill">
+        <mat-label>Choose a date</mat-label>
+        <input matInput [matDatepickerFilter]="over16Filter" [matDatepicker]="picker" formControlName="birthDate">
+        <mat-error *ngIf="RegisterForm.get('birthDate')?.invalid">{{getErrorMessage()}}</mat-error>
+        <mat-hint>MM/DD/YYYY</mat-hint>
+        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+    </div>
+    <div class="d-flex">
+      <mat-form-field appearance="fill">
+        <mat-label>Enter your email</mat-label>
+        <input matInput placeholder="mail@example.com" formControlName="email" maxlength="320" required />
+        <mat-error *ngIf="RegisterForm.get('email')?.invalid">{{getErrorMessage()}}</mat-error>
+        <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Enter your password</mat-label>
+        <input matInput [type]="hide ? 'password' : 'text'" formControlName="password">
+        <mat-error *ngIf="RegisterForm.get('password')?.invalid">{{getErrorMessage()}}</mat-error>
+        <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+          <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+        </button>
+      </mat-form-field>
+    </div>
+    <div class="d-flex">
+      <h2 class="text-white">Choose your gender</h2> <br>
+      <mat-radio-group aria-label="Select your gender" formControlName="gender">
+        <mat-radio-button value="male">Male</mat-radio-button>
+        <mat-radio-button value="female">Female</mat-radio-button>
+        <mat-radio-button value="other">Other</mat-radio-button>
+      </mat-radio-group>
+    </div>
+    <div class="">
+      <mat-form-field class="example-full-width">
+        <mat-label>Address</mat-label>
+        <textarea matInput formControlName="address"></textarea>
+          <mat-error *ngIf="RegisterForm.get('address')?.invalid">{{getErrorMessage()}}</mat-error>
+      </mat-form-field>
+    </div>
+    <div class="d-flex">
+      <div>
+        <mat-form-field class="example-full-width">
+          <mat-label>City</mat-label>
+          <input matInput placeholder="Ex. San Francisco" formControlName="city">
+            <mat-error *ngIf="RegisterForm.get('city')?.invalid">{{getErrorMessage()}}</mat-error>
+        </mat-form-field>
+      </div>
+      <div>
+        <mat-form-field class="example-full-width">
+          <mat-label>State</mat-label>
+          <input matInput placeholder="Ex. California" formControlName="state">
+            <mat-error *ngIf="RegisterForm.get('state')?.invalid">{{getErrorMessage()}}</mat-error>
+        </mat-form-field>
+      </div>
+      <div>
+        <mat-form-field class="example-full-width">
+          <mat-label>Postal Code</mat-label>
+          <input matInput #postalCode maxlength="5" type="number" placeholder="Ex. 94105" value="94043" formControlName="postalCode">
+          <mat-error *ngIf="RegisterForm.get('postalCode')?.invalid">{{getErrorMessage()}}</mat-error>
+
+          <mat-hint align="end">{{postalCode.value.length}} / 5</mat-hint>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div>
+      <section class="example-section">
+        <span class="example-list-section">
+          <mat-checkbox class="example-margin" [checked]="allComplete" formControlName="services" [color]="service.color"
+            [indeterminate]="someComplete()" (change)="setAll($event.checked)">
+            {{service.name}}
+          </mat-checkbox>
+        </span>
+        <span class="example-list-section">
+          <ul>
+            <li *ngFor="let subtask of service.subtasks">
+              <mat-checkbox [checked]="subtask.completed" formControlName="services" [color]="subtask.color"
+                (change)="subtask.completed = $event.checked">
+                {{subtask.name}}
+              </mat-checkbox>
+            </li>
+          </ul>
+        </span>
+      </section>
+    </div>
+  </div>
+  <mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close>Cancel</button>
+    <!-- <button mat-button [mat-dialog-close]="true" cdkFocusInitial type="submit" >Register</button> -->
+    <button mat-button [mat-dialog-close]="true" cdkFocusInitial type="submit" [disabled]="RegisterForm.invalid">Register</button>
+
+
+  </mat-dialog-actions>
+</form>
